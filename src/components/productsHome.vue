@@ -1,30 +1,33 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>{{ content }}</h3>
-
-
-
+      <!-- <h2>{{ content }}</h2> -->
+      <Card></Card>
     </header>
+    
   </div>
 
-  <!-- <Addproducts></Addproducts> -->
+
 </template>
   
 <script>
 import UserService from "../services/user.service";
-// import Addproducts from "./moderatorpackage/Addproducts.vue";
+import Card from "./package/Card.vue";
+// 引用services/user.service.js
 
 export default {
-  name: "Moderator",
+  name: "Home",
+  components: {
+    Card,
+  },
   data() {
     return {
       content: "",
     };
   },
   mounted() {
-    UserService.getModeratorBoard().then(
-      // userService.getModeratorBoard(): 取得/services/user.service getModeratorBoard的內容
+    UserService.getPublicContent().then(
+      // userService.getPublicContent(): 取得/services/user.service getPublicContent公開的內容
       (response) => {
         this.content = response.data;
       },
@@ -37,10 +40,6 @@ export default {
           error.toString();
       }
     );
-  },
-
-  components: {
-    // Addproducts,
   },
 };
 </script>

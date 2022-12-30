@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from "./components/Home.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
+import productsHome from "./components/productsHome.vue";
 // lazy-loaded
 const Profile = () => import("./components/Profile.vue")
 const BoardAdmin = () => import("./components/BoardAdmin.vue")
@@ -10,6 +11,9 @@ const BoardUser = () => import("./components/BoardUser.vue")
 const Payment = () => import("./components/package/Payment.vue")
 const PayPage = () => import("./components/package/PayPage.vue")
 const Order = () => import("./components/package/Order.vue")
+const Addproducts = () => import("./components/moderatorpackage/Addproducts.vue")
+const Showproducts = () => import("./components/moderatorpackage/Showproducts.vue")
+const Updataproducts = () => import("./components/moderatorpackage/Updataproducts.vue")
 
 const routes = [
   {
@@ -21,6 +25,12 @@ const routes = [
     path: "/home",
     component: Home,
   },
+
+  {
+    path: "/productsHome",
+    component: productsHome,
+  },
+
   {
     path: "/login",
     component: Login,
@@ -75,6 +85,23 @@ const routes = [
     component: Order,
 
  },
+
+ {
+    path: "/addproducts",
+    name: "addproducts",
+    component: Addproducts,
+ },
+
+  {
+    path: "/showproducts",
+    name: "showproducts",
+    component: Showproducts,
+  },
+
+  
+
+
+
 
 ];
 

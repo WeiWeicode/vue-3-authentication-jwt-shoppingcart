@@ -8,19 +8,44 @@
             <font-awesome-icon icon="home" /> Home
           </router-link>
         </li>
+        <li class="nav-item" v-if="currentUser">
+          <!-- 產品 -->
+          <router-link to="/productsHome" class="nav-link">
+             產品
+          </router-link>
+        </li>
+
+        <li v-if="showModeratorBoard" class="nav-item">
+          <!-- <router-link to="/mod" class="nav-link">Moderator Board</router-link> -->
+          <!-- 下拉式選單 -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            產品上架與更新
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" @click="toAddproducts">產品新增</a>
+            <a class="dropdown-item" @click="toshowproducts">產品列表</a>
+            <!-- <a class="dropdown-item" @click="toupdataproducts">產品更新</a> -->
+          </div>
+        </li>
+        </li>
+        <li class="nav-item" v-if="currentUser">
+          <!-- <router-link  to="/user" class="nav-link">User</router-link> -->
+
+          <!-- 會員專區 -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            會員專區
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" @click="toorder">訂單查詢</a>
+          </div>
+        </li>
+        </li>
+
         <li v-if="showAdminBoard" class="nav-item">
           <router-link to="/admin" class="nav-link">Admin Board</router-link>
         </li>
-        <li v-if="showModeratorBoard" class="nav-item">
-          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
-        </li>
-
-
-
-
 
       </div>
 
@@ -38,35 +63,36 @@
       </div>
 
 
-      <div class="btn-group">
-        <!-- <div v-if="currentUser" class="navbar-nav ml-auto "> -->
-        <div v-if="currentUser" class="navbar-nav ml-auto ">
+      <!-- <div class="btn-group"> -->
+      <!-- <div v-if="currentUser" class="navbar-nav ml-auto "> -->
+      <!-- <div v-if="currentUser" class="navbar-nav ml-auto ">
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
-            <font-awesome-icon icon="user" />
-            個人資訊
-          </router-link>
+              <font-awesome-icon icon="user" />
+              個人資訊
+            </router-link>
           </li>
 
           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static"
-            aria-expanded="false" >
+            aria-expanded="false">
             選單
           </button>
-          <div class="dropdown-menu dropdown-menu-lg-right" style="background-color:#595959;padding:10px;margin-bottom:5px;">
+          <div class="dropdown-menu dropdown-menu-lg-right"
+            style="background-color:#595959;padding:10px;margin-bottom:5px;">
             <button class="dropdown-item nav-link" type="button" @click="myOrder">訂單查詢</button>
             <button class="dropdown-item nav-link" type="button" @click.prevent="logOut">LogOut</button>
-          </div>
+          </div> -->
 
 
-          <!-- <button class="dropdown-item" type="button">Action</button> -->
+      <!-- <button class="dropdown-item" type="button">Action</button> -->
 
-        </div>
-      </div>
-
-
+      <!-- </div>
+      </div> -->
 
 
-      <!-- <div v-if="currentUser" class="navbar-nav ml-auto">
+
+
+      <div v-if="currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
@@ -78,7 +104,7 @@
             <font-awesome-icon icon="sign-out-alt" /> LogOut
           </a>
         </li>
-      </div> -->
+      </div>
 
 
 
@@ -121,8 +147,30 @@ export default {
     logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
-    }
+    },
     // logOut: 登出
+
+    // toAddproducts
+    toAddproducts() {
+      this.$router.push('/addproducts');
+    },
+
+
+    // toshowproducts
+    toshowproducts() {
+      this.$router.push('/showproducts');
+    },
+
+    // toupdataproducts
+    // toupdataproducts() {
+    //   this.$router.push('/updataproducts');
+    // },
+
+    // toorder
+    toorder() {
+      this.$router.push('/myorder');
+    }
+
   }
 };
 </script>
