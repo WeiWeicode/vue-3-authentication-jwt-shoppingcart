@@ -50,7 +50,9 @@
 
 <script>
 import axios from 'axios';
-
+import AxiosAPI from "../../APIurl/axiosAPI.js";
+const API_URL = AxiosAPI.ProductServiceurl();
+const API_image = AxiosAPI.Imagepath();
 export default {
     data() {
         return {
@@ -81,7 +83,7 @@ export default {
             formData.append('published', this.published);
 
 
-            axios.post('http://192.168.68.60:8082/api/products/addProduct', formData).then((res) => {
+            axios.post(API_URL + 'addProduct', formData).then((res) => {
                 console.log(res)
                 alert('新增成功')
                 // this.$router.push('/addproducts');

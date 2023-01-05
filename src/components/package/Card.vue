@@ -72,9 +72,9 @@
                     <img :src="path + product.image" class="card-img-top" alt="">
                     <!-- `http://localhost:3000/${productImage}` -->
                     <div class="card-body">
-                        <h5 class="card-title">{{ product.title }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <p class="card-text">{{ product.price }}</p>
+                        <h5 class="card-title">商品名稱:{{ product.title }}</h5>
+                        <p class="card-text">產品描述:{{ product.description }}</p>
+                        <p class="card-text">產品價格:{{ product.price }}</p>
                     </div>
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         <!-- <button @click="addShoppingCart(ProductsTable)" type="button" class="btn btn-success" >購物車</button> -->
@@ -108,6 +108,10 @@
 import router from "@/router";
 import axios from "axios";
 // 引用axios
+import AxiosAPI from "../../APIurl/axiosAPI.js";
+const API_URL = AxiosAPI.ProductServiceurl();
+const API_image = AxiosAPI.Imagepath();
+
 
 export default {
 
@@ -147,7 +151,8 @@ export default {
 
             titleSearch: '',
             // titleSearch: 搜尋的標題 先給空值 也可以預設值
-            path: "http://192.168.68.60:8082/"
+            // path: "http://192.168.68.60:8082/"
+            path: API_image,
             // paht: 照片路徑使用
         };
     },
@@ -156,7 +161,7 @@ export default {
 
     mounted:
         function () {
-            axios.get("http://192.168.68.60:8082/api/products/allProducts")
+            axios.get(API_URL + "allProducts")
                 // 發出取得請求
                 .then((response) => {
                     // 取得回應後的處理

@@ -118,7 +118,8 @@
 
 <script>
 import axios from "axios";
-
+import AxiosAPI from "../../APIurl/axiosAPI.js";
+const API_URL = AxiosAPI.ProductServiceurl();
 
 export default {
   data() {
@@ -153,7 +154,7 @@ export default {
 
 
     // axios取得訂單資料
-    axios.get('http://192.168.68.60:8082/api/products/getOrderProductsUser/' + this.user_id)
+    axios.get(API_URL + 'getOrderProductsUser/' + this.user_id)
       .then((res) => {
         this.ordersTemp = res.data
         console.log(this.orders)

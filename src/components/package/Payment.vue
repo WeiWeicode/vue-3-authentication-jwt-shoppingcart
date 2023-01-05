@@ -96,7 +96,8 @@
 <script>
 
 import axios from "axios";
-
+import AxiosAPI from "../../APIurl/axiosAPI.js";
+const API_URL = AxiosAPI.ProductServiceurl();
 
 export default {
 
@@ -163,7 +164,7 @@ export default {
             }
 
 
-            axios.post('http://192.168.68.60:8082/api/products/addOrderProduct', order)
+            axios.post(API_URL + 'addOrderProduct', order)
                 .then((res) => {
                     console.log(res)
                     // res寫入localStorage命名為:OrderData

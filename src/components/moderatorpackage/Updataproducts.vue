@@ -6,31 +6,37 @@
 
     <form>
 
+        <!-- <div class="form-group">
+            <label for="inputAddress">產品名稱</label>
+            <input type="text" class="form-control" id="inputAddress" required v-model="title" >
+           
+        </div> -->
+
         <div class="form-group">
             <label for="inputAddress">產品名稱</label>
-            <input type="text" class="form-control" id="inputAddress" required v-model="title">
+            <input type="text" class="form-control" required v-model="title">
         </div>
+
+
+
         <div class="form-group">
             <label for="inputAddress2">產品金額</label>
-            <input type="text" class="form-control" id="inputAddress2" oninput="value=value.replace(/[^\d]/g,'')"
-                required v-model="price">
+            <input type="text" class="form-control" oninput="value=value.replace(/[^\d]/g,'')" required v-model="price">
         </div>
 
         <div class="mb-3">
             <label for="validationTextarea">產品描述</label>
-            <textarea class="form-control" id="validationTextarea2" required v-model="description"></textarea>
+            <textarea class="form-control" required v-model="description"></textarea>
         </div>
 
-        <!-- <div class="form-group">
-            <label for="exampleFormControlFile1">上傳照片</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-        </div> -->
 
         <!-- 照片上傳 -->
         <div class="form-group">
             <label for="exampleFormControlFile1">上傳照片</label>
             <input type="file" class="form-control-file" id="exampleFormControlFile1" @change="uploadImage">
         </div>
+
+
 
         <!-- 產品是否上架 -->
 
@@ -45,45 +51,60 @@
     </form>
 
     <button type="submit" class="btn btn-primary" @click="updateproducts">更新產品</button>
+
+
+
 </template>
 
 <script>
 import axios from 'axios';
+import AxiosAPI from "../../APIurl/axiosAPI.js";
+const API_URL = AxiosAPI.ProductServiceurl();
+
 
 export default {
+    // 子接收父傳值
+    props: ['accept'],
     data() {
         return {
-            // // 產品名稱
+            //     // // 產品名稱
             // title: '',
-            // // 產品金額
+            //     // // 產品金額
             // price: '',
-            // // 產品描述
+            //     // // 產品描述
             // description: '',
-            // // 產品照片
+            //     // // 產品照片
             // image: '',
-            // // 產品上架
-            // published: false,
+            //     // // 產品上架
+            // published: '',
 
-            localProducts: [],
+            // localProducts: [],
 
         }
+
     },
 
     mounted:
         function () {
-            // 取得localStorage item
-            this.localProducts = JSON.parse(localStorage.getItem('item'));
-            console.log(this.localProducts);
-            
+            // this.title = this.accept.title;
+            // this.price = this.accept.price;
+            // this.description = this.accept.description;
+            // this.published = this.accept.published;
+
+
+
         },
 
     methods: {
         // 新增產品 formdata
         uploadImage(event) {
+            // 將image原本的值清空再上傳
+
+
             this.image = event.target.files[0];
         },
 
-        addproducts() {
+        updateproducts() {
             let formData = new FormData();
             formData.append('title', this.title);
             formData.append('price', this.price);
@@ -92,39 +113,67 @@ export default {
             formData.append('published', this.published);
 
 
-            axios.post('http://192.168.68.60:8082/api/products/addProduct', formData).then((res) => {
+            axios.patch(API_URL + 'patchProductid/' + this.accept.id, formData).then((res) => {
                 console.log(res)
-                alert('新增成功')
+                alert('更新成功')
                 // this.$router.push('/addproducts');
 
-                this.title = '';
-                this.price = '';
-                this.description = '';
-                this.published = false;
-                // 上傳成功跳出提示, 畫面重新整理
 
             }).catch((err) => {
-                    console.log(err);
-                })
+                console.log(err);
+            })
         }
     },
 
     computed: {
-        // 取得本地端item.title
-        title() {
-            return JSON.parse(localStorage.getItem('item')).title;
+
+        title: {
+            get() {
+                return this.accept.title;
+            },
+            set(value) {
+                this.accept.title = value;
+            }
         },
-        price() {
-            return JSON.parse(localStorage.getItem('item')).price;
+        price: {
+            get() {
+                return this.accept.price;
+            },
+            set(value) {
+                this.accept.price = value;
+            }
         },
-        description() {
-            return JSON.parse(localStorage.getItem('item')).description;
+        description: {
+            get() {
+                return this.accept.description;
+            },
+            set(value) {
+                this.accept.description = value;
+            }
         },
-        published() {
-            return JSON.parse(localStorage.getItem('item')).published;
+        published: {
+            get() {
+                return this.accept.published;
+            },
+            set(value) {
+                this.accept.published = value;
+            }
+        },
+        image: {
+            get() {
+                return this.accept.image;
+            },
+            set(value) {
+                this.accept.image = value;
+            }
         },
 
-    
+
+        
+
+
+
+
     }
 
 

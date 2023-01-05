@@ -32,7 +32,7 @@
                 <td>{{ item.createdAt }}</td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-                        @click="updataproducts(item)">
+                        @click.prevent="updataproducts(item)">
                         修改
                     </button>
                     <!-- 修改彈出視窗 引用Updataproducts.vue面板 -->
@@ -44,7 +44,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -53,7 +53,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <Updataproducts></Updataproducts>
+                    <!-- <Updataproducts></Updataproducts> -->
+                    <Updataproducts :accept="itemTemp"></Updataproducts>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -62,11 +63,20 @@
         </div>
     </div>
 
+
+
+
 </template>
     
 <script>
 import axios from 'axios';
+// import { url } from 'inspector';
 import Updataproducts from './Updataproducts.vue';
+
+import AxiosAPI from "../../APIurl/axiosAPI.js";
+const API_URL = AxiosAPI.ProductServiceurl();
+const API_image = AxiosAPI.Imagepath();
+
 
 export default {
     components: {
@@ -76,15 +86,19 @@ export default {
         return {
             products: [],
 
+            path: API_image,
 
-            path: "http://192.168.68.60:8082/"
+            
+
+            itemTemp: '',
+
 
         }
     },
 
     mounted:
         function () {
-            axios.get("http://192.168.68.60:8082/api/products/allProducts")
+            axios.get(API_URL + "allProducts")
                 .then((res) => {
                     this.products = res.data
                     console.log(this.products)
@@ -96,11 +110,31 @@ export default {
         },
 
     methods: {
+        sentToparent() {
+            this.$emit('sentToparent', this.inputContent)
+        },
+
+
         // updataproducts:item寫入localStorage
         updataproducts(item) {
-            localStorage.setItem('item', JSON.stringify(item));
+            // 將item存到data,建立父傳子的資料
+            // this.itemtemp = item;
+            this.itemTemp = item;
+
+            
+
+            
+            
+
+            // localStorage.setItem('item', JSON.stringify(item));
+            // 刷新vue computed
+            // this.$forceUpdate();
+
+
         },
-        
+
+
+
     },
 
 

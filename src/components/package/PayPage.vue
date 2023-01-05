@@ -190,6 +190,9 @@
 
 <script>
 import axios from "axios";
+// 引用APIurl資料夾的axiosAPI.js
+import AxiosAPI from "../../APIurl/axiosAPI.js";
+const API_URL = AxiosAPI.ProductServiceurl();
 
 export default {
     data() {
@@ -265,7 +268,7 @@ export default {
                 ord_logistics: "待出貨"
             }
 
-            axios.patch('http://192.168.68.60:8082/api/products/updateOrder/' + this.ord_id, data)
+            axios.patch(API_URL + 'updateOrder/' + this.ord_id, data)
                 .then((res) => {
                     // 跳轉到MyOrder
                     console.log(res.data)
@@ -289,7 +292,7 @@ export default {
                 ord_logistics: "待出貨"
             }
 
-            axios.patch('http://192.168.68.60:8082/api/products/updateOrder/' + this.ord_id, data)
+            axios.patch(API_URL + 'updateOrder/' + this.ord_id, data)
                 .then((res) => {
                     // 跳轉到MyOrder
                     console.log(res.data)

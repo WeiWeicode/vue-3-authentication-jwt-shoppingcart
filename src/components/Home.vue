@@ -2,6 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h2>{{ content }}</h2>
+      
     </header>
     <!-- <Card></Card> -->
   </div>
@@ -11,6 +12,8 @@
 import UserService from "../services/user.service";
 import Card from "./package/Card.vue";
 // 引用services/user.service.js
+// import AxiosAPI from "../APIurl/AxiosAPI.js";
+import AxiosAPI from "../APIurl/axiosAPI.js";
 
 export default {
   name: "Home",
@@ -20,6 +23,7 @@ export default {
   data() {
     return {
       content: "",
+      
     };
   },
   mounted() {
@@ -37,6 +41,9 @@ export default {
           error.toString();
       }
     );
+      // 取得AxiosAPI.getPublicAPIurl的文字
+    
+    
   },
 };
 </script>

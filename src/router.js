@@ -13,7 +13,7 @@ const PayPage = () => import("./components/package/PayPage.vue")
 const Order = () => import("./components/package/Order.vue")
 const Addproducts = () => import("./components/moderatorpackage/Addproducts.vue")
 const Showproducts = () => import("./components/moderatorpackage/Showproducts.vue")
-const Updataproducts = () => import("./components/moderatorpackage/Updataproducts.vue")
+// const Updataproducts = () => import("./components/moderatorpackage/Updataproducts.vue")
 
 const routes = [
   {

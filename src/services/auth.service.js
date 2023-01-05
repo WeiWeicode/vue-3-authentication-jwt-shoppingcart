@@ -1,7 +1,12 @@
 import axios from 'axios';
 // 引用axios
+// 引用axios和auth-header
+import AxiosAPI from "../APIurl/axiosAPI.js";
+// 變數 = AxiosAPI.getPublicAPIurl()
+const API_URL = AxiosAPI.AuthServiceurl();
 
-const API_URL = 'http://localhost:8080/api/auth/';
+
+// const API_URL = 'http://localhost:8080/api/auth/';
 
 // authService 用來處理登入login、登出logout、註冊register等相關的功能
 class AuthService {

@@ -4,6 +4,7 @@ module.exports = {
   // https://cli.vuejs.org/core-plugins/eslint.html#configuration
   devServer: {
     host: "0.0.0.0",
+    allowedHosts: "all",
     // host: 全部都可以訪問
     port: 8081    
   }
