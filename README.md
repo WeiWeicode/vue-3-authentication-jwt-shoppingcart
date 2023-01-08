@@ -1,5 +1,8 @@
 # vue-3-authentication-jwt
 
+筆記
+https://flannel-pig-c50.notion.site/Vue-js-f0ec3dfd7be7445ab09521eb8edc9dbd
+
 ## Project setup
 ```
 npm install
