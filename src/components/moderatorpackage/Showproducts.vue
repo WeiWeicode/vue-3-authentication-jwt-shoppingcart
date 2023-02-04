@@ -1,8 +1,10 @@
 <template>
     <h1>產品列表</h1>
     <hr>
+    <h2 v-if="content == '需要版主權限!'"> {{ content }} </h2>
 
-    <table class="table table-bordered">
+
+    <table class="table table-bordered" v-if="content == '版主角色連線成功.'">
         <thead>
             <tr>
                 <th scope="col">產品編號</th>
@@ -69,6 +71,9 @@
 </template>
     
 <script>
+import UserService from "../../services/user.service";
+
+
 import axios from 'axios';
 // import { url } from 'inspector';
 import Updataproducts from './Updataproducts.vue';
@@ -84,14 +89,11 @@ export default {
     },
     data() {
         return {
+            content: "",
+
             products: [],
-
             path: API_image,
-
-            
-
             itemTemp: '',
-
 
         }
     },
@@ -106,6 +108,20 @@ export default {
                 .catch((err) => {
                     console.log(err)
                 })
+            UserService.getModeratorBoard().then(
+                // userService.getModeratorBoard(): 取得/services/user.service getModeratorBoard的內容
+                (response) => {
+                    this.content = response.data;
+                },
+                (error) => {
+                    this.content =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
 
         },
 
@@ -121,10 +137,10 @@ export default {
             // this.itemtemp = item;
             this.itemTemp = item;
 
-            
 
-            
-            
+
+
+
 
             // localStorage.setItem('item', JSON.stringify(item));
             // 刷新vue computed

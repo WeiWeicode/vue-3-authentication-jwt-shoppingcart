@@ -1,11 +1,9 @@
 <template>
     <h1>新增產品</h1>
     <hr>
+    <h2 v-if="content == '需要版主權限!'"> {{ content }} </h2>
 
-
-
-    <form>
-
+    <form v-if="content == '版主角色連線成功.'">
         <div class="form-group">
             <label for="inputAddress">產品名稱</label>
             <input type="text" class="form-control" id="inputAddress" required v-model="title">
@@ -41,21 +39,27 @@
                 v-model="published">
             <label class="custom-control-label" for="customControlValidation1">是否上架產品</label>
         </div>
+        <button type="submit" class="btn btn-primary" @click="addproducts">新增產品</button>
 
     </form>
 
-    <button type="submit" class="btn btn-primary" @click="addproducts">新增產品</button>
 
 </template>
 
 <script>
+import UserService from "../../services/user.service";
+
 import axios from 'axios';
 import AxiosAPI from "../../APIurl/axiosAPI.js";
 const API_URL = AxiosAPI.ProductServiceurl();
 const API_image = AxiosAPI.Imagepath();
 export default {
+
+
     data() {
         return {
+            content: "",
+
             // 產品名稱
             title: '',
             // 產品金額
@@ -95,10 +99,31 @@ export default {
                 // 上傳成功跳出提示, 畫面重新整理
 
             }).catch((err) => {
-                    console.log(err);
-                })
+                console.log(err);
+            })
         }
-    }
+    },
+
+    mounted() {
+        UserService.getModeratorBoard().then(
+            // userService.getModeratorBoard(): 取得/services/user.service getModeratorBoard的內容
+            (response) => {
+                this.content = response.data;
+            },
+            (error) => {
+                this.content =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+            }
+        );
+    },
+
+
+
+
 }
 
 

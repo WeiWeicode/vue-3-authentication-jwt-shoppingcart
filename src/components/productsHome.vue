@@ -16,7 +16,7 @@ import Card from "./package/Card.vue";
 // 引用services/user.service.js
 
 export default {
-  name: "Home",
+  name: "productsHome",
   components: {
     Card,
   },

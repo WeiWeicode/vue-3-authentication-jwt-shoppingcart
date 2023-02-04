@@ -3,20 +3,26 @@
     <header class="jumbotron">
       <h3>{{ content }}</h3>
 
-
-
     </header>
   </div>
+  <!-- content = 需要版主權限! 才顯示Addproducts-->
+  <Addproducts v-if="content == '版主角色連線成功.'" ></Addproducts>
 
   <!-- <Addproducts></Addproducts> -->
+  <Card></Card>
 </template>
   
 <script>
 import UserService from "../services/user.service";
-// import Addproducts from "./moderatorpackage/Addproducts.vue";
+import Addproducts from "./moderatorpackage/Addproducts.vue";
 
 export default {
   name: "Moderator",
+
+  components: {
+    Addproducts,
+  },
+
   data() {
     return {
       content: "",
@@ -39,8 +45,6 @@ export default {
     );
   },
 
-  components: {
-    // Addproducts,
-  },
+
 };
 </script>

@@ -20,16 +20,30 @@ class AuthService {
         .then(response => {
           if (response.data.accessToken) {
             localStorage.setItem('user', JSON.stringify(response.data));
+
+            // 取得response.data.accessToken
+            let token = response.data.accessToken; 
+            
+            // 將token轉成json格式 欄位名稱為accessToken
+            let tokenjson = {accessToken: token};
+
+
+          localStorage.setItem('token', JSON.stringify(tokenjson));
+          
           }
           // response.data.accessToken 存在的話，就把response.data存到localStorage
           // localStorage.setItem: 將資料存入瀏覽器的本地儲存
+
+          
           return response.data;
+
         });
         // login: username and password 保存到JWT本地儲存
     }
   
     logout() {
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
     }
     // logout: 移除JWT本地儲存
     // localStorage.removeItem: 移除指定的localStorage

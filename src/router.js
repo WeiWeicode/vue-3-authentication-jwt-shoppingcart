@@ -98,11 +98,6 @@ const routes = [
     component: Showproducts,
   },
 
-  
-
-
-
-
 ];
 
 const router = createRouter({
